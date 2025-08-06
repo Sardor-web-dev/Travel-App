@@ -48,7 +48,7 @@ const dashboard = () => {
                 tags={tags}
                 imageUrl={imageUrls[0]}
                 price={estimatedPrice}
-                location={itinerary?.[0]?.location || ''}
+                location={itinerary?.[0]?.location || ""}
               />
             ))}
         </div>
