@@ -1,17 +1,23 @@
 import { Header, StatsCard, TripCard } from "components";
-import { dashboardStats, user, allTrips } from "~/constants";
+import { getUser } from "~/appwrite/auth";
+import { dashboardStats, allTrips } from "~/constants";
+import type { Route } from "./+types/admin-layout";
 
 const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } =
   dashboardStats;
 
-const dashboard = () => {
+export const clientLoader = async () => await getUser();
+
+const Dashboard = ({ loaderData }: Route.ComponentProps) => {
+  const user = loaderData as User | undefined;
+  console.log(user);
+
   return (
     <main className="dashboard wrapper">
       <Header
         title={`Welcome ${user?.name ?? "Guest"}👋`}
         description="Track activity, trends and popular destinations in real time"
       />
-
       <section className="flex flex-col gap-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           <StatsCard
@@ -34,7 +40,6 @@ const dashboard = () => {
           />
         </div>
       </section>
-
       <section className="container ">
         <h1 className="text-xl font-semibold text-dark-100">Created Trips</h1>
         <div className="trip-grid">
@@ -57,4 +62,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;
