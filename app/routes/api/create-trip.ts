@@ -71,6 +71,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       .generateContent([prompt]);
 
     const trip = parseMarkdownToJson(textResult.response.text());
+    // const trip = JSON.parse(textResult.response.text());
 
     const imageResponse = await fetch(
       `https://api.unsplash.com/search/photos?query=${country} ${interests} ${travelStyle}&client_id=${unsplashApiKey}`
